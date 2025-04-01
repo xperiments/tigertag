@@ -6,7 +6,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "TigerTag Documentation",
-  tagline: "TigerTag",
+  tagline: "Future is now",
   favicon: "img/favicon.webp",
 
   // Set the production url of your site here
