@@ -1,0 +1,2159 @@
+---
+sidebar_position: 8
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Server API
+
+---
+
+## Table of Contents
+
+1. [Product (Filament) Endpoints](#product-filament-endpoints)
+2. [Brand Endpoints](#brand-endpoints)
+3. [Material (Filament) Endpoints](#material-filament-endpoints)
+4. [Aspect Endpoints](#aspect-endpoints)
+5. [Last Update](#last-update)
+6. [Diameter (Filament) Endpoints](#diameter-filament-endpoints)
+7. [Measure Unit Endpoints](#measure-unit-endpoints)
+8. [Type Endpoints](#type-endpoints)
+9. [Version Endpoints](#version-endpoints)
+10. [Error Codes](#error-codes)
+
+---
+
+## Product (Filament) Endpoints
+
+### Retrieve Product Filament Information
+
+- **Endpoint:** `POST /product/filament/get_infos`
+- **Description:** Retrieves detailed product information for filament based on multiple criteria.
+- **Request Body:** Accepts either JSON or form-data with the following properties (all required unless noted):
+  - `type_id` (integer, required)
+  - `material_id` (integer, required)
+  - `diameter_id` (integer, required)
+  - `aspect1_id` (integer, required)
+  - `aspect2_id` (integer, required)
+  - `measure_id` (integer, required)
+  - `brand_id` (integer, required)
+  - `lang` (string, optional): Language code.
+- **Response:** A JSON object containing the filament product information.
+
+  <Tabs>
+    <TabItem value="A" label="Curl" default="true">
+    ```jsx title="shell"
+    curl -X 'POST' \
+      'https://api.tigertag.io/api:tigertag/product/filament/get_infos' \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+      "type_id": 0,
+      "material_id": 0,
+      "diameter_id": 0,
+      "aspect1_id": 0,
+      "aspect2_id": 0,
+      "measure_id": 0,
+      "brand_id": 0,
+      "lang": "string"
+    }'
+    ```
+    </TabItem>
+    <TabItem value="B" label="javascript">
+    ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/product/filament/get_infos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        type_id: 0,
+        material_id: 0,
+        diameter_id: 0,
+        aspect1_id: 0,
+        aspect2_id: 0,
+        measure_id: 0,
+        brand_id: 0,
+        lang: 'string'
+      })
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+    ```
+    </TabItem>
+    <TabItem value="C" label="Python">
+    ```python title="python"
+      import requests
+
+      payload = {
+          "type_id": 0,
+          "material_id": 0,
+          "diameter_id": 0,
+          "aspect1_id": 0,
+          "aspect2_id": 0,
+          "measure_id": 0,
+          "brand_id": 0,
+          "lang": "string"
+      }
+      response = requests.post('https://api.tigertag.io/api:tigertag/product/filament/get_infos', json=payload)
+      print(response.json())
+
+  ````
+  </TabItem>
+  <TabItem value="D" label="Arduino">
+  ```cpp title="Arduino"
+      // Arduino C++ (ESP32)
+      #include <WiFi.h>
+      #include <HTTPClient.h>
+
+      const char* ssid = "YOUR_SSID";
+      const char* password = "YOUR_PASSWORD";
+
+      void setup() {
+        Serial.begin(115200);
+        WiFi.begin(ssid, password);
+        while (WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          Serial.print(".");
+        }
+
+        HTTPClient http;
+        http.begin("https://api.tigertag.io/api:tigertag/product/filament/get_infos");
+        int httpCode = http.GET();
+        if (httpCode > 0) {
+          String payload = http.getString();
+          Serial.println(payload);
+        } else {
+          Serial.println("Error on HTTP request");
+        }
+        http.end();
+      }
+
+      void loop() {}
+  ````
+
+    </TabItem>
+  </Tabs>
+
+### Retrieve Specific Product Filament
+
+- **Endpoint:** `GET /product/filament/get`
+- **Parameters:**
+  - `uid` (integer, required): The RFID chip UID.
+  - `product_id` (integer, required): The unique identifier for the product.
+- **Response:** A JSON object with detailed product filament information.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/product/filament/get?uid=1234567890&product_id=1"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const uid = 1234567890; // example UID
+    const product_id = 1;
+    fetch(`https://api.tigertag.io/api:tigertag/product/filament/get?uid=${uid}&product_id=${product_id}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+      import requests
+
+      uid = 1234567890
+      product_id = 1
+
+      url = f"https://api.tigertag.io/api:tigertag/product/filament/get?uid={uid}&product_id={product_id}"
+
+      try:
+          response = requests.get(url)
+          response.raise_for_status()  # Raise an error for bad status codes
+          data = response.json()
+          print(data)
+      except requests.RequestException as e:
+          print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      long uid = 1234567890;
+      int product_id = 1;
+      String url = "https://api.tigertag.io/api:tigertag/product/filament/get?uid=" + String(uid) + "&product_id=" + String(product_id);
+
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String response = http.getString();
+        Serial.println(response);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Brand Endpoints
+
+### Retrieve All Brands (Paginated)
+
+- **Endpoint:** `GET /brand/get/all/by_page`
+- **Parameters:**
+  - `page` (integer, required): The page number.
+  - `per_page` (integer, optional): The number of items per page.
+- **Response:** A JSON object with a paginated list of brands.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=1&per_page=10"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const page = 1;
+    const per_page = 10;
+    fetch(`https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=${page}&per_page=${per_page}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+page = 1
+per_page = 10
+
+url = f"https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page={page}&per_page={per_page}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int page = 1;
+      int per_page = 10;
+      String url = "https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=" + String(page) + "&per_page=" + String(per_page);
+
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if (httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve All Brands
+
+- **Endpoint:** `GET /brand/get/all`
+- **Description:** Returns an array of brand objects.
+- **Response Object Structure:**
+  - `id` (integer, nullable): The unique identifier for the brand.
+  - `name` (string, nullable): The name of the brand.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/brand/get/all"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+  fetch('https://api.tigertag.io/api:tigertag/brand/get/all')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/brand/get/all"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/brand/get/all");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve Brand by ID
+
+- **Endpoint:** `GET /brand/get`
+- **Parameters:**
+  - `id` (integer, required): The unique identifier for the brand.
+- **Response:** A JSON object representing the brand details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/brand/get?id=123"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const id = 123;
+    fetch(`https://api.tigertag.io/api:tigertag/brand/get?id=${id}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+
+````
+</TabItem>
+<TabItem value="py" label="Python">
+```python title="python"
+import requests
+
+id = 123
+url = f"https://api.tigertag.io/api:tigertag/brand/get?id={id}"
+
+try:
+  response = requests.get(url)
+  response.raise_for_status()
+  data = response.json()
+  print(data)
+except requests.RequestException as e:
+  print("Error:", e)
+
+````
+
+  </TabItem>
+  <TabItem value="ad" label="Arduino">
+  ```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int id = 123;
+      String url = "https://api.tigertag.io/api:tigertag/brand/get?id=" + String(id);
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+</TabItem>
+</Tabs>
+
+### Brand Last Update
+
+- **Endpoint:** `GET /brand/last_update`
+- **Description:** Returns the last update information for brand data.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+<TabItem value="cu" label="Curl" default="true">
+```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/brand/last_update"
+````
+
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/brand/last_update')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/brand/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "YOUR_SSID";
+const char* password = "YOUR_PASSWORD";
+
+void setup() {
+Serial.begin(115200);
+WiFi.begin(ssid, password);
+while(WiFi.status() != WL_CONNECTED) {
+  delay(500);
+  Serial.print(".");
+}
+
+HTTPClient http;
+http.begin("https://api.tigertag.io/api:tigertag/brand/last_update");
+int httpCode = http.GET();
+if(httpCode > 0) {
+  String payload = http.getString();
+  Serial.println(payload);
+} else {
+  Serial.println("HTTP GET failed");
+}
+http.end();
+}
+
+void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Material (Filament) Endpoints
+
+### Retrieve All Filament Materials (Paginated)
+
+- **Endpoint:** `GET /material/filament/get/all/by_page`
+- **Parameters:**
+  - `page` (integer, required): The page number.
+  - `per_page` (integer, required): The number of items per page.
+  - `lang` (string, optional): Language code (e.g., "en", "fr").
+- **Response:** A JSON object with a paginated list of filament materials.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/material/filament/get/all/by_page?page=1&per_page=10&lang=en"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const page = 1;
+    const per_page = 10;
+    const lang = 'en';
+    fetch(`https://api.tigertag.io/api:tigertag/material/filament/get/all/by_page?page=${page}&per_page=${per_page}&lang=${lang}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+page = 1
+per_page = 10
+lang = 'en'
+
+url = f"https://api.tigertag.io/api:tigertag/material/filament/get/all/by_page?page={page}&per_page={per_page}&lang={lang}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int page = 1;
+      int per_page = 10;
+      String lang = "en";
+      String url = "https://api.tigertag.io/api:tigertag/material/filament/get/all/by_page?page=" + String(page) +
+                  "&per_page=" + String(per_page) + "&lang=" + lang;
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve All Filament Materials
+
+- **Endpoint:** `GET /material/filament/get/all`
+- **Parameters:**
+  - `lang` (string, optional): Language code.
+  - `light` (boolean, optional): Optional flag to modify the response.
+- **Response:** A JSON object representing all filament materials.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/material/filament/get/all?lang=en&light=true"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const lang = 'en';
+    const light = true;
+    fetch(`https://api.tigertag.io/api:tigertag/material/filament/get/all?lang=${lang}&light=${light}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+
+````
+</TabItem>
+<TabItem value="py" label="Python">
+```python title="python"
+import requests
+
+lang = 'en'
+light = True  # Python boolean
+
+url = f"https://api.tigertag.io/api:tigertag/material/filament/get/all?lang={lang}&light={str(light).lower()}"
+
+try:
+  response = requests.get(url)
+  response.raise_for_status()
+  data = response.json()
+````
+
+  </TabItem>
+  <TabItem value="ad" label="Arduino">
+  ```cpp title="Arduino"
+      #include <WiFi.h>
+      #include <HTTPClient.h>
+
+      const char* ssid = "YOUR_SSID";
+      const char* password = "YOUR_PASSWORD";
+
+      void setup() {
+        Serial.begin(115200);
+        WiFi.begin(ssid, password);
+        while(WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          Serial.print(".");
+        }
+
+        String lang = "en";
+        bool light = true;
+        String url = "https://api.tigertag.io/api:tigertag/material/filament/get/all?lang=" + lang + "&light=" + String(light);
+        HTTPClient http;
+        http.begin(url);
+        int httpCode = http.GET();
+        if(httpCode > 0) {
+          String payload = http.getString();
+          Serial.println(payload);
+        } else {
+          Serial.println("HTTP GET failed");
+        }
+        http.end();
+      }
+
+      void loop() {}
+
+````
+</TabItem>
+</Tabs>
+
+### Retrieve Filament Material by ID
+
+- **Endpoint:** `GET /material/filament/get`
+- **Parameters:**
+- `id` (integer, required): The unique identifier for the material.
+- `lang` (string, optional): Language code.
+- **Response:** A JSON object representing the material details.
+
+
+<Tabs>
+<TabItem value="cu" label="Curl" default="true">
+```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/material/filament/get?id=123&lang=en"
+````
+
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      const id = 123;
+      const lang = 'en';
+      fetch(`https://api.tigertag.io/api:tigertag/material/filament/get?id=${id}&lang=${lang}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+
+````
+</TabItem>
+<TabItem value="py" label="Python">
+```python title="python"
+import requests
+
+id = 123
+lang = 'en'
+
+url = f"https://api.tigertag.io/api:tigertag/material/filament/get?id={id}&lang={lang}"
+
+try:
+  response = requests.get(url)
+  response.raise_for_status()
+  data = response.json()
+  print(data)
+except requests.RequestException as e:
+  print("Error:", e)
+
+````
+
+  </TabItem>
+  <TabItem value="ad" label="Arduino">
+  ```cpp title="Arduino"
+      #include <WiFi.h>
+      #include <HTTPClient.h>
+
+      const char* ssid = "YOUR_SSID";
+      const char* password = "YOUR_PASSWORD";
+
+      void setup() {
+        Serial.begin(115200);
+        WiFi.begin(ssid, password);
+        while(WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          Serial.print(".");
+        }
+
+        int id = 123;
+        String lang = "en";
+        String url = "https://api.tigertag.io/api:tigertag/material/filament/get?id=" + String(id) + "&lang=" + lang;
+        HTTPClient http;
+        http.begin(url);
+        int httpCode = http.GET();
+        if(httpCode > 0) {
+          String payload = http.getString();
+          Serial.println(payload);
+        } else {
+          Serial.println("HTTP GET failed");
+        }
+        http.end();
+      }
+
+      void loop() {}
+
+````
+</TabItem>
+</Tabs>
+
+### Filament Material Last Update
+
+- **Endpoint:** `GET /material/filament/last_update`
+- **Description:** Returns the last update information for filament materials.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+<TabItem value="cu" label="Curl" default="true">
+```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/material/filament/last_update"
+````
+
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/material/filament/last_update')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/material/filament/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/material/filament/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Aspect Endpoints
+
+### Retrieve All Aspects (Paginated)
+
+- **Endpoint:** `GET /aspect/get/all/by_page`
+- **Parameters:**
+  - `page` (integer, required): The page number to retrieve.
+  - `per_page` (integer, optional): The number of items per page.
+- **Response:** A JSON object containing aspects for the requested page.
+
+<Tabs>
+  <TabItem value="curl" label="Python">
+```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=1&per_page=10"
+```
+  </TabItem>
+  <TabItem value="javascript" label="JS" default>
+  ```jsx title="all_last_update.js"
+      const page = 1;
+      const per_page = 10;
+      fetch(`https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=${page}&per_page=${per_page}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```  
+  </TabItem>
+  <TabItem value="arduino" label="Arduino">
+<!-- prettier-ignore -->
+```jsx title="all_last_update.js"
+#include <WiFi.h>
+#include <HTTPClient.h>
+
+const char* ssid = "YOUR_SSID";
+const char* password = "YOUR_PASSWORD";
+
+void setup() {
+Serial.begin(115200);
+WiFi.begin(ssid, password);
+while(WiFi.status() != WL_CONNECTED) {
+delay(500);
+Serial.print(".");
+}
+
+int page = 1;
+int per_page = 10;
+String url = "https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page=" + String(page) + "&per_page=" + String(per_page);
+
+HTTPClient http;
+http.begin(url);
+int httpCode = http.GET();
+if (httpCode > 0) {
+String payload = http.getString();
+Serial.println(payload);
+} else {
+Serial.println("HTTP GET failed");
+}
+http.end();
+}
+
+void loop() {}
+
+````
+
+  </TabItem>
+  <TabItem value="python" label="Python">
+```python title="Python"
+import requests
+
+page = 1
+per_page = 10
+
+url = f"https://api.tigertag.io/api:tigertag/aspect/get/all/by_page?page={page}&per_page={per_page}"
+
+try:
+    response = requests.get(url)
+    response.raise_for_status()
+    data = response.json()
+    print(data)
+except requests.RequestException as e:
+    print("Error:", e)
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve All Aspects
+
+- **Endpoint:** `GET /aspect/get/all`
+- **Description:** Returns an array of aspect objects.
+- **Response Object Structure:**
+  - `id` (integer, nullable): The unique identifier for the aspect.
+  - `label` (string, nullable): The descriptive label of the aspect.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/aspect/get/all"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/aspect/get/all')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/aspect/get/all"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/aspect/get/all");
+      int httpCode = http.GET();
+      if (httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("Error on HTTP request");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve Aspect by ID
+
+- **Endpoint:** `GET /aspect/get`
+- **Parameters:**
+  - `id` (integer, required): The unique identifier of the aspect.
+- **Response:** A JSON object representing the aspect details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/aspect/get?id=123"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const id = 123; // example id
+    fetch(`https://api.tigertag.io/api:tigertag/aspect/get?id=${id}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+id = 123
+url = f"https://api.tigertag.io/api:tigertag/aspect/get?id={id}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int id = 123; // example id
+      String url = "https://api.tigertag.io/api:tigertag/aspect/get?id=" + String(id);
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Aspect Last Update
+
+- **Endpoint:** `GET /aspect/last_update`
+- **Description:** Provides the timestamp for the last update of aspect data.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/aspect/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/aspect/last_update')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/aspect/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/aspect/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Diameter (Filament) Endpoints
+
+### Retrieve All Filament Diameters (Paginated)
+
+- **Endpoint:** `GET /diameter/filament/get/all/by_page`
+- **Parameters:**
+  - `page` (integer, required): The page number.
+  - `per_page` (integer, optional): The number of items per page.
+- **Response:** A JSON object containing paginated diameter data.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/diameter/filament/get/all/by_page?page=1&per_page=10"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      const page = 1;
+      const per_page = 10;
+      fetch(`https://api.tigertag.io/api:tigertag/diameter/filament/get/all/by_page?page=${page}&per_page=${per_page}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+page = 1
+per_page = 10
+
+url = f"https://api.tigertag.io/api:tigertag/diameter/filament/get/all/by_page?page={page}&per_page={per_page}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int page = 1;
+      int per_page = 10;
+      String url = "https://api.tigertag.io/api:tigertag/diameter/filament/get/all/by_page?page=" + String(page) + "&per_page=" + String(per_page);
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve All Filament Diameters
+
+- **Endpoint:** `GET /diameter/filament/get/all`
+- **Description:** Returns an array of diameter objects.
+- **Response Object Structure:**
+  - `id` (integer, nullable): Unique diameter identifier.
+  - `label` (string, nullable): The descriptive label for the diameter.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+  curl "https://api.tigertag.io/api:tigertag/diameter/filament/get/all"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/diameter/filament/get/all')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+
+````
+</TabItem>
+<TabItem value="py" label="Python">
+```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/diameter/filament/get/all"
+
+try:
+  response = requests.get(url)
+  response.raise_for_status()
+  data = response.json()
+  print(data)
+except requests.RequestException as e:
+  print("Error:", e)
+
+````
+
+  </TabItem>
+  <TabItem value="ad" label="Arduino">
+  ```cpp title="Arduino"
+      #include <WiFi.h>
+      #include <HTTPClient.h>
+
+      const char* ssid = "YOUR_SSID";
+      const char* password = "YOUR_PASSWORD";
+
+      void setup() {
+        Serial.begin(115200);
+        WiFi.begin(ssid, password);
+        while(WiFi.status() != WL_CONNECTED) {
+          delay(500);
+          Serial.print(".");
+        }
+
+        HTTPClient http;
+        http.begin("https://api.tigertag.io/api:tigertag/diameter/filament/get/all");
+        int httpCode = http.GET();
+        if(httpCode > 0) {
+          String payload = http.getString();
+          Serial.println(payload);
+        } else {
+          Serial.println("HTTP GET failed");
+        }
+        http.end();
+      }
+
+      void loop() {}
+
+````
+</TabItem>
+</Tabs>
+
+### Retrieve Filament Diameter by ID
+
+- **Endpoint:** `GET /diameter/filament/get`
+- **Parameters:**
+- `id` (integer, required): The unique identifier for the diameter.
+- **Response:** A JSON object representing the diameter details.
+
+
+<Tabs>
+<TabItem value="cu" label="Curl" default="true">
+```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/diameter/filament/get?id=123"
+````
+
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      const id = 123;
+      fetch(`https://api.tigertag.io/api:tigertag/diameter/filament/get?id=${id}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+  import requests
+
+id = 123
+url = f"https://api.tigertag.io/api:tigertag/diameter/filament/get?id={id}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int id = 123;
+      String url = "https://api.tigertag.io/api:tigertag/diameter/filament/get?id=" + String(id);
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Filament Diameter Last Update
+
+- **Endpoint:** `GET /diameter/filament/last_update`
+- **Description:** Returns the last update information for filament diameters.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/diameter/filament/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/diameter/filament/last_update')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/diameter/filament/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/diameter/filament/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Measure Unit Endpoints
+
+### Retrieve All Measure Units (Paginated)
+
+- **Endpoint:** `GET /measure_unit/get/all/by_page`
+- **Parameters:**
+  - `page` (integer, required): The page number.
+  - `per_page` (integer, required): The number of items per page.
+  - `lang` (string, optional): Language code.
+- **Response:** A JSON object with a paginated list of measurement units.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/measure_unit/get/all/by_page?page=1&per_page=10&lang=en"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      const page = 1;
+      const per_page = 10;
+      const lang = 'en';
+      fetch(`https://api.tigertag.io/api:tigertag/measure_unit/get/all/by_page?page=${page}&per_page=${per_page}&lang=${lang}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+  import requests
+
+page = 1
+per_page = 10
+lang = 'en'
+
+url = f"https://api.tigertag.io/api:tigertag/measure_unit/get/all/by_page?page={page}&per_page={per_page}&lang={lang}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int page = 1;
+      int per_page = 10;
+      String lang = "en";
+      String url = "https://api.tigertag.io/api:tigertag/measure_unit/get/all/by_page?page=" + String(page) +
+                  "&per_page=" + String(per_page) + "&lang=" + lang;
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve All Measure Units
+
+- **Endpoint:** `GET /measure_unit/get/all`
+- **Parameters:**
+  - `lang` (string, optional): Language code.
+- **Response:** A JSON object representing all measure units.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/measure_unit/get/all?lang=en"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    const lang = 'en';
+    fetch(`https://api.tigertag.io/api:tigertag/measure_unit/get/all?lang=${lang}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+lang = 'en'
+url = f"https://api.tigertag.io/api:tigertag/measure_unit/get/all?lang={lang}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      String lang = "en";
+      String url = "https://api.tigertag.io/api:tigertag/measure_unit/get/all?lang=" + lang;
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Retrieve Measure Unit by ID
+
+- **Endpoint:** `GET /measure_unit/get`
+- **Parameters:**
+  - `id` (integer, required): The unique identifier for the measure unit.
+  - `lang` (string, optional): Language code.
+- **Response:** A JSON object representing the measure unit details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/measure_unit/get?id=123&lang=en"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      const id = 123;
+      const lang = 'en';
+      fetch(`https://api.tigertag.io/api:tigertag/measure_unit/get?id=${id}&lang=${lang}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+id = 123
+lang = 'en'
+url = f"https://api.tigertag.io/api:tigertag/measure_unit/get?id={id}&lang={lang}"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      int id = 123;
+      String lang = "en";
+      String url = "https://api.tigertag.io/api:tigertag/measure_unit/get?id=" + String(id) + "&lang=" + lang;
+      HTTPClient http;
+      http.begin(url);
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+````
+
+  </TabItem>
+</Tabs>
+
+### Measure Unit Last Update
+
+- **Endpoint:** `GET /measure_unit/last_update`
+- **Description:** Returns the last update information for measure units.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/measure_unit/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+    fetch('https://api.tigertag.io/api:tigertag/measure_unit/last_update')
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/measure_unit/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/measure_unit/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Type Endpoints
+
+### Retrieve All Types
+
+- **Endpoint:** `GET /type/get/all`
+- **Description:** Returns an array of type objects.
+- **Response Object Structure:**
+  - `id` (integer, nullable): Unique identifier for the type.
+  - `label` (string): Descriptive label for the type.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/type/get/all"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/type/get/all')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+  import requests
+
+url = "https://api.tigertag.io/api:tigertag/type/get/all"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/type/get/all");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String response = http.getString();
+        Serial.println(response);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+### Type Last Update
+
+- **Endpoint:** `GET /type/last_update`
+- **Description:** Returns the last update information for type data.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/type/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/type/last_update')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/type/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/type/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String response = http.getString();
+        Serial.println(response);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+````
+
+  </TabItem>
+</Tabs>
+
+---
+
+## Version Endpoints
+
+### Retrieve Version Information
+
+- **Endpoint:** `GET /version/get/all`
+- **Description:** Returns version information of the API.
+- **Response:** A JSON object containing version details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/version/get/all"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/version/get/all')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/version/get/all"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/version/get/all");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String response = http.getString();
+        Serial.println(response);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+````
+
+  </TabItem>
+</Tabs>
+
+### Version Last Update
+
+- **Endpoint:** `GET /version/last_update`
+- **Description:** Returns the last update timestamp for version information.
+- **Response:** A JSON object with update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/version/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/version/last_update')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/version/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/version/last_update");
+      int httpCode = http.GET();
+      if(httpCode > 0) {
+        String response = http.getString();
+        Serial.println(response);
+      } else {
+        Serial.println("HTTP GET failed");
+      }
+      http.end();
+    }
+
+    void loop() {}
+
+````
+
+  </TabItem>
+</Tabs>
+
+## Last Update
+
+- **Endpoint:** `GET /all/last_update`
+- **Description:** Returns the last update timestamp for all available data.
+- **Authentication:** Not required.
+- **Response:** A JSON object containing last update details.
+
+<Tabs>
+  <TabItem value="cu" label="Curl" default="true">
+  ```jsx title="shell"
+curl "https://api.tigertag.io/api:tigertag/all/last_update"
+  ```
+  </TabItem>
+  <TabItem value="js" label="JS">
+  ```jsx title="javascript"
+      fetch('https://api.tigertag.io/api:tigertag/all/last_update')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));  
+  ```
+  </TabItem>
+  <TabItem value="py" label="Python">
+  ```python title="python"
+import requests
+
+url = "https://api.tigertag.io/api:tigertag/all/last_update"
+
+try:
+response = requests.get(url)
+response.raise_for_status()
+data = response.json()
+print(data)
+except requests.RequestException as e:
+print("Error:", e)
+
+````
+</TabItem>
+<TabItem value="ad" label="Arduino">
+```cpp title="Arduino"
+    #include <WiFi.h>
+    #include <HTTPClient.h>
+
+    const char* ssid = "YOUR_SSID";
+    const char* password = "YOUR_PASSWORD";
+
+    void setup() {
+      Serial.begin(115200);
+      WiFi.begin(ssid, password);
+      while(WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+      }
+
+      HTTPClient http;
+      http.begin("https://api.tigertag.io/api:tigertag/all/last_update");
+      int httpCode = http.GET();
+      if (httpCode > 0) {
+        String payload = http.getString();
+        Serial.println(payload);
+      } else {
+        Serial.println("Error on HTTP request");
+      }
+      http.end();
+    }
+
+    void loop() {}
+````
+
+  </TabItem>
+</Tabs>
+
+---
