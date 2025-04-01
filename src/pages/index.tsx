@@ -18,12 +18,12 @@ function HomepageHeader() {
         </Heading>
 
         <img
-          src="/img/tiger.svg"
+          src="img/tiger.svg"
           alt="Logo"
           style={{ display: "block", margin: "auto" }}
         />
         <img
-          src="/img/tag.svg"
+          src="img/tag.svg"
           alt="Logo1"
           style={{ display: "block", width: "200px", margin: "auto" }}
         />
