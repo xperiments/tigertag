@@ -1,50 +1,57 @@
-import type {ReactNode} from 'react';
-import clsx from 'clsx';
-import Heading from '@theme/Heading';
-import styles from './styles.module.css';
+import type { ReactNode } from "react";
+import clsx from "clsx";
+import Heading from "@theme/Heading";
+import styles from "./styles.module.css";
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Svg: React.ComponentType<React.ComponentProps<"svg">>;
   description: ReactNode;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: "Local Storage",
+    Svg: require("@site/static/img/tag.svg").default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        TigerTag stores essential filament data directly on the chip, ensuring
+        reliable, offline access even when there’s no network connectivity. This
+        is key for uninterrupted 3D printing operations, making it a strong
+        point for users who need dependable performance.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: "Online Connectivity",
+    Svg: require("@site/static/img/cloud.svg").default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        With its free REST API, TigerTag connects to a cloud service to deliver
+        enhanced information—like product images, detailed printing profiles,
+        and multimedia content. This seamless integration between offline
+        reliability and online richness offers users up-to-date and
+        comprehensive filament data.
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: "TigerTag Maker",
+    Svg: require("@site/static/img/maker.svg").default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Empowering makers and DIY enthusiasts, TigerTag Maker lets users convert
+        standard NFC chips (such as NTAG213) into customized tags. This feature
+        encourages innovation and personalization, expanding the technology’s
+        use beyond standard 3D printing applications.
       </>
     ),
   },
 ];
 
-function Feature({title, Svg, description}: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>

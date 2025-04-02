@@ -22,11 +22,11 @@ function HomepageHeader() {
           alt="Logo"
           style={{ display: "block", margin: "auto" }}
         />
-        <img
+        {/* <img
           src="img/tag.svg"
           alt="Logo1"
           style={{ display: "block", width: "200px", margin: "auto" }}
-        />
+        /> */}
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
           <Link
