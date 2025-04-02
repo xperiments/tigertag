@@ -69,9 +69,9 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 ### API & Documentation
 
 - **API Access:**  
-  TigerTag provides a free [REST API](docs/format/api) for accessing extended filament information, making real-time data retrieval straightforward for both 3D printers and mobile apps.
+  TigerTag provides a free [REST API](/docs/format/api) for accessing extended filament information, making real-time data retrieval straightforward for both 3D printers and mobile apps.
 - **Documentation:**  
-  Comprehensive technical documentation is available, covering integration guidelines, [API](docs/format/api) usage, and best practices. This documentation is open to manufacturers, makers, and developers.
+  Comprehensive technical documentation is available, covering integration guidelines, [API](/docs/format/api) usage, and best practices. This documentation is open to manufacturers, makers, and developers.
 - **Open Standard:**  
   By embracing an open standard, TigerTag supports third-party innovation, allowing developers to create new applications and enhance existing workflows.
 
@@ -101,7 +101,7 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 - **Improved User Experience:**  
   Automatic filament detection reduces setup time and configuration errors.
 - **Easy Integration:**  
-  Comprehensive [API](docs/format/api) and documentation facilitate quick integration of TigerTag technology.
+  Comprehensive [API](/docs/format/api) and documentation facilitate quick integration of TigerTag technology.
 - **Flexible Functionality:**  
   Support for both online and offline modes caters to varied manufacturing needs.
 
@@ -110,4 +110,4 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 - **Custom Projects:**  
   The [TigerTag Maker](/docs/format/compare) allows for the creation of custom tags to suit individual project needs.
 - **Experimentation:**  
-  The open [API](docs/format/api) and documentation foster innovation, making it possible to explore new applications beyond 3D printing (e.g., smart keychains, object tracking).
+  The open [API](/docs/format/api) and documentation foster innovation, making it possible to explore new applications beyond 3D printing (e.g., smart keychains, object tracking).
