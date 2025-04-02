@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Tigertag Memory Layout
+# Memory Layout
 
 The TigerTag memory structure follows the layout of NTAG213-compatible RFID tags. Each memory page consists of 4 bytes. The layout below defines how data is distributed across pages 4 to 39, with key identifiers, material information, print parameters, metadata, and a digital signature. This memory format ensures cross-compatibility with slicing software, printer firmware, and cloud services reading encoded spool metadata.
 

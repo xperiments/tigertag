@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# TigerTag Data Structure
+# Format Specs
 
 ## TigerTagID
 
