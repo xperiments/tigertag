@@ -13,7 +13,7 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 ### 1. Local Storage
 
 - **Description:**  
-  Essential filament data is stored directly on the chip, allowing for reliable, long-term "cold" storage without continuous network connectivity.
+  Essential filament data is stored directly [on the chip](/docs/format), allowing for reliable, long-term "cold" storage without continuous network connectivity.
 - **Use Case:**  
   3D printers can read necessary data directly from the chip even in offline environments.
 - **Benefits:**
@@ -23,14 +23,14 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 ### 2. Online Connectivity
 
 - **Description:**  
-  TigerTag connects to a cloud service via a free REST API to provide enhanced information such as product images, detailed printing profiles, SKU, EAN codes, and multimedia content.
+  **[TigerTag Pro](/docs/format/compare)** connects to a cloud service via a free REST API to provide enhanced information such as product images, detailed printing profiles, SKU, EAN codes, and multimedia content.
 - **Use Case:**  
   When connected, 3D printers and mobile applications can access up-to-date filament configurations and additional resources.
 - **Benefits:**
   - Always up-to-date data
   - Enhanced user experience with richer media and settings
 
-### 3. TigerTag Maker
+### 3. [TigerTag Maker](/docs/format/compare)
 
 - **Description:**  
   This feature allows users to create their own Tiger Tags at home using standard NFC chips (e.g., NTAG213).
@@ -45,7 +45,7 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 - **Description:**  
   TigerTag allocates memory for custom data storage:
 
-  - Both **Standard TigerTag** and **TigerTag Pro** provide **32 bytes** for community add-on functions or custom usage.
+  - Both **[TigerTag Pro](/docs/format/compare)** and **[TigerTag Maker](/docs/format/compare)** provide **32 bytes** for community add-on functions or custom usage.
 
 - **Use Case:**  
   Enables users to store additional, application-specific data on each tag, such as serial numbers, purchase dates, or notes.
@@ -69,9 +69,9 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 ### API & Documentation
 
 - **API Access:**  
-  TigerTag provides a free REST API for accessing extended filament information, making real-time data retrieval straightforward for both 3D printers and mobile apps.
+  TigerTag provides a free [REST API](docs/format/api) for accessing extended filament information, making real-time data retrieval straightforward for both 3D printers and mobile apps.
 - **Documentation:**  
-  Comprehensive technical documentation is available, covering integration guidelines, API usage, and best practices. This documentation is open to manufacturers, makers, and developers.
+  Comprehensive technical documentation is available, covering integration guidelines, [API](docs/format/api) usage, and best practices. This documentation is open to manufacturers, makers, and developers.
 - **Open Standard:**  
   By embracing an open standard, TigerTag supports third-party innovation, allowing developers to create new applications and enhance existing workflows.
 
@@ -101,13 +101,13 @@ TigerTag is a hybrid NFC/RFID chip designed to simplify and automate 3D printing
 - **Improved User Experience:**  
   Automatic filament detection reduces setup time and configuration errors.
 - **Easy Integration:**  
-  Comprehensive API and documentation facilitate quick integration of TigerTag technology.
+  Comprehensive [API](docs/format/api) and documentation facilitate quick integration of TigerTag technology.
 - **Flexible Functionality:**  
   Support for both online and offline modes caters to varied manufacturing needs.
 
 ### For Makers & DIY Enthusiasts
 
 - **Custom Projects:**  
-  The TigerTag Maker allows for the creation of custom tags to suit individual project needs.
+  The [TigerTag Maker](/docs/format/compare) allows for the creation of custom tags to suit individual project needs.
 - **Experimentation:**  
-  The open API and documentation foster innovation, making it possible to explore new applications beyond 3D printing (e.g., smart keychains, object tracking).
+  The open [API](docs/format/api) and documentation foster innovation, making it possible to explore new applications beyond 3D printing (e.g., smart keychains, object tracking).
